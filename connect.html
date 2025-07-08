@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASK XMD - Connexion WhatsApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+
+    :root {
+      --primary: #6a11cb;
+      --secondary: #2575fc;
+      --accent: #00bfff;
+      --error: #ff4757;
+      --success: #2ed573;
+      --dark: #1e1e2d;
+      --light: #f8f9fa;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #1e1e2d, #2d3436);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background-image: url('https://files.catbox.moe/r94hm1.jpg');
+      background-size: cover;
+      background-blend-mode: overlay;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: white;
+      text-shadow: 0 0 15px rgba(106, 17, 203, 0.7);
+    }
+    
+    h2 {
+      margin: 0 0 20px;
+      font-size: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .input-group input:focus {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+    }
+    
+    .btn:active {
+      transform: translateY(1px);
+    }
+    
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .code-display {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 15px 0;
+      letter-spacing: 3px;
+      color: white;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    
+    .copy-btn {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+    }
+    
+    .loading {
+      display: none;
+      margin: 20px 0;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .error-message {
+      color: var(--error);
+      font-weight: 600;
+      margin-top: 15px;
+      display: none;
+      animation: shake 0.5s;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+    
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .expire-notice {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card pulse">
+      <div class="logo">
+        <i class="fas fa-robot"></i>
+      </div>
+      <h2>ASK XMD CONNECT</h2>
+      <p>Entrez votre numéro sans (+)</p>
+      <div class="input-group">
+        <input type="tel" id="number" placeholder="Ex: 24101234567" autocomplete="off">
+      </div>
+            <button class="btn" id="submit">
+        <i class="fas fa-key"></i> Générer le code
+      </button>
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Vérification en cours...</p>
+      </div>
+      <div class="error-message" id="error-message"></div>
+      <div class="result-container" id="result-box">
+        <h3><i class="fas fa-check-circle" style="color: var(--success);"></i> Code généré!</h3>
+        <p>Utilisez ce code pour vous connecter:</p>
+        <div class="code-display" id="code-display"></div>
+        <button class="copy-btn" id="copy-btn">
+          <i class="fas fa-copy"></i> Copier le code
+        </button>
+        <p class="expire-notice">
+          <i class="fas fa-clock"></i> Ce code expirera dans 30 secondes
+        </p>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Développé par <a href="#">Dev Ask</a> & <a href="#">Kaya Tech</a></p>
+      <p>ASK XMD v1.3.5 | © 2023 Tous droits réservés</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    document.getElementById('submit').addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      const numberInput = document.getElementById('number').value.trim();
+      const errorElement = document.getElementById('error-message');
+      const loadingElement = document.getElementById('loading');
+      const resultBox = document.getElementById('result-box');
+      const codeDisplay = document.getElementById('code-display');
+      
+      // Reset UI
+      errorElement.style.display = 'none';
+      resultBox.style.display = 'none';
+      loadingElement.style.display = 'block';
+      
+      // Validation
+      const numberOnly = numberInput.replace(/[^0-9]/g, '');
+      const countryCode = numberOnly.slice(0, 3);
+      const firstDigit = numberOnly.slice(0, 1);
+      const firstTwoDigits = numberOnly.slice(0, 2);
+      
+      // Check if number is valid
+      if (!numberOnly) {
+        showError("Veuillez entrer un numéro");
+        return;
+      }
+      
+      if (numberOnly.length < 10 || numberOnly.length > 15) {
+        showError("Numéro WhatsApp invalide (10-15 chiffres requis)");
+        return;
+      }
+      
+      // Check restricted numbers
+      if (countryCode === "252" || firstDigit === "0" || firstTwoDigits === "89" || countryCode.startsWith("85")) {
+        showError("Numéros avec code pays 252, préfixe 0, commençant par 89 ou +85 ne sont pas supportés");
+        return;
+      }
+      
+      try {
+        // Simulate verification (remove in production)
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Verify if number is registered on WhatsApp
+        const verification = { data: { registered: true } }; // Replace with actual API call
+        if (!verification.data.registered) {
+          showError("Ce numéro n'est pas enregistré sur WhatsApp");
+          return;
+        }
+        
+        // Request pairing code (simulated)
+        const response = { 
+          data: { 
+            code: Math.floor(10000000 + Math.random() * 90000000).toString() 
+          } 
+        };
+        // In production: const response = await axios.get(`/code?number=${numberOnly}`);
+        
+        if (response.data && response.data.code) {
+          // Format code with dashes
+          const formattedCode = response.data.code.match(/.{1,4}/g).join('-');
+          
+          // Display result
+          codeDisplay.textContent = formattedCode;
+          resultBox.style.display = 'block';
+          
+          // Copy functionality
+          document.getElementById('copy-btn').addEventListener('click', function() {
+            navigator.clipboard.writeText(response.data.code);
+            this.innerHTML = '<i class="fas fa-check"></i> Copié!';
+            setTimeout(() => {
+              this.innerHTML = '<i class="fas fa-copy"></i> Copier le code';
+            }, 2000);
+          }, { once: true });
+          
+          // Hide loading
+          loadingElement.style.display = 'none';
+        } else {
+          showError("Erreur lors de la génération du code");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        showError("Erreur du serveur. Veuillez réessayer.");
+      }
+    });
+    
+    function showError(message) {
+      const errorElement = document.getElementById('error-message');
+      const loadingElement = document.getElementById('loading');
+      
+      loadingElement.style.display = 'none';
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
