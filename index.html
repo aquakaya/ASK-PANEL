@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASK XMD - Connexion WhatsApp</title>
+  <style>
+
+    :root {
+      --primary: #5d3fd3; /* Violet-bleu intense */
+      --secondary: #1e90ff; /* Bleu vif */
+      --accent: #00bfff; /* Bleu ciel */
+      --light: #e6f0ff; /* Bleu très clair */
+      --dark: #0a1f44; /* Bleu nuit */
+      --green: #32CD32; /* Vert pour contrastes */
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #f0f7ff, #e6f0ff);
+      color: var(--dark);
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 25px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(93, 63, 211, 0.15);
+      border: 2px solid var(--light);
+    }
+    
+    .logo {
+      font-size: 3.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 5px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 10px 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    
+    .subtitle {
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .btn-container {
+      margin: 30px 0;
+    }
+    
+    .btn-main {
+      display: block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 16px;
+      margin-bottom: 25px;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(93, 63, 211, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(93, 63, 211, 0.4);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+    
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 18px rgba(30, 144, 255, 0.1);
+      border-left: 5px solid var(--secondary);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(30, 144, 255, 0.15);
+    }
+    
+    h2 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .social-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+      padding: 12px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--secondary), #4a9fff);
+      box-shadow: 0 4px 10px rgba(30, 144, 255, 0.3);
+    }
+    
+    .social-link:nth-child(2n) {
+      background: linear-gradient(135deg, var(--primary), #7a5af5);
+    }
+    
+    .social-link:nth-child(3n) {
+      background: linear-gradient(135deg, var(--accent), #00d4ff);
+    }
+    
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: white;
+      padding: 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .partner {
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    
+    .highlight {
+      background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(30, 144, 255, 0.1));
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    
+    .version-badge {
+      display: inline-block;
+      background: var(--light);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-robot"></i>
+    </div>
+    <h1>ASK XMD</h1>
+    <p class="subtitle">Générateur Premium de codes WhatsApp</p>
+  </header>
+
+  <div class="btn-container">
+    <a href="/connect" class="btn-main">
+      <i class="fas fa-bolt"></i> Générer un code instantané
+    </a>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-star" style="color: var(--accent);"></i> À propos</h2>
+    <p>Service <span class="highlight">officiel ASK XMD</span> pour une connexion <span class="highlight">ultra-rapide</span> et <span class="highlight">sécurisée</span> à WhatsApp.</p>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-handshake" style="color: var(--secondary);"></i> Partenaires</h2>
+    <p>Développé par <span class="partner">Dev Ask</span> en collaboration avec <span class="partner">Kaya Tech</span></p>
+    <div class="version-badge">
+      <i class="fas fa-code-branch"></i> Version 1.3.5
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fab fa-whatsapp" style="color: #25D366;"></i> Nos réseaux</h2>
+    <div class="social-links">
+      <a href="https://whatsapp.com/channel/askxmd1" class="social-link" target="_blank">
+        <i class="fas fa-bullhorn"></i> Chaîne Officielle
+      </a>
+      <a href="https://whatsapp.com/group/askxmd-support" class="social-link" target="_blank">
+        <i class="fas fa-headset"></i> Support
+      </a>
+      <a href="https://whatsapp.com/channel/askxmd-news" class="social-link" target="_blank">
+        <i class="fas fa-newspaper"></i> Actualités
+      </a>
+      <a href="https://whatsapp.com/group/askxmd-community" class="social-link" target="_blank">
+        <i class="fas fa-users"></i> Communauté
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-envelope" style="color: var(--accent);"></i> Contact</h2>
+    <div class="contact-item">
+      <i class="fas fa-at" style="color: var(--primary);"></i>
+      <span>contact@askxmd.com</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-phone" style="color: var(--secondary);"></i>
+      <span>+241 XX XX XX XX</span>
+    </div>
+  </div>
+
+  <footer>
+    <p><i class="fas fa-copyright"></i> 2025 ASK XMD | Tous droits réservés</p>
+    <p style="margin-top: 8px; font-weight: 600;">Power by <span style="color: var(--accent);">ASK Tech DeV</span></p>
+  </footer>
+</body>
+</html>
